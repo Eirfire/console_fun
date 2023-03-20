@@ -1,4 +1,14 @@
-mod point;
+#[derive(Debug, Clone, Copy)]
+pub struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Point {
+    pub fn new(x: i32, y: i32) -> Self {
+        Self { x, y }
+    }
+}
 
 pub struct Ball {
     position: Point,
@@ -21,7 +31,7 @@ impl Ball {
         }
     }
 
-    fn move_ball(&mut self) {
+    pub fn move_ball(&mut self) {
         let mut ball_x = 0;
         let mut ball_y = 0;
         if self.ball_going_down {
@@ -35,14 +45,14 @@ impl Ball {
             ball_x -= 1;
         }
         
-        let mut ball_position = Point::new(self.position.0 + ball_x, self.position.1 + ball_y);
+        let ball_position = Point::new(self.position.x + ball_x, self.position.y + ball_y);
 
-        if ball_position.1 == 0 || ball_position.1 == screen_y -1 {
-            ball_going_down = !ball_going_down
+        if ball_position.y == 0 || ball_position.y == self.screen_y -1 {
+            self.ball_going_down = !self.ball_going_down
         } 
 
-        if ball_position.0 == 0 || ball_position.0 == screen_x -1 {
-            ball_going_right = !ball_going_right
+        if ball_position.x == 0 || ball_position.x == self.screen_x -1 {
+            self.ball_going_right = !self.ball_going_right
         }
     }
 }
