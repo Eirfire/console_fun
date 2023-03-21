@@ -1,26 +1,26 @@
 #[derive(Debug, Clone, Copy)]
 pub struct Point {
-    x: i32,
-    y: i32,
+    pub x: usize,
+    pub y: usize,
 }
 
 impl Point {
-    pub fn new(x: i32, y: i32) -> Self {
+    pub fn new(x: usize, y: usize) -> Self {
         Self { x, y }
     }
 }
 
 pub struct Ball {
-    position: Point,
-    ball_going_down: bool,
-    ball_going_right: bool,
-    screen_x: i32,
-    screen_y: i32,
-    ball_character: char,
+    pub position: Point,
+    pub ball_going_down: bool,
+    pub ball_going_right: bool,
+    pub screen_x: usize,
+    pub screen_y: usize,
+    pub ball_character: char,
 }
 
 impl Ball {
-    fn new(position: Point, screen_x: i32, screen_y: i32) -> Self {
+    pub fn new(position: Point, screen_x: usize, screen_y: usize) -> Self {
         Ball {
             position,
             ball_going_down: true,
@@ -47,11 +47,11 @@ impl Ball {
         
         let ball_position = Point::new(self.position.x + ball_x, self.position.y + ball_y);
 
-        if ball_position.y == 0 || ball_position.y == self.screen_y -1 {
+        if ball_position.y == 0 || ball_position.y == (self.screen_y -1).try_into().unwrap() {
             self.ball_going_down = !self.ball_going_down
         } 
 
-        if ball_position.x == 0 || ball_position.x == self.screen_x -1 {
+        if ball_position.x == 0 || ball_position.x == (self.screen_x -1).try_into().unwrap() {
             self.ball_going_right = !self.ball_going_right
         }
     }
